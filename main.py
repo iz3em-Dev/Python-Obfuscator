@@ -49,7 +49,7 @@ def ecrire_stub(chemin, contenu):
 
 def pause():
     try:
-        input("\nEnter for close programme...")
+        input("\nEnter for close...")
     except Exception:
         pass
 
@@ -67,7 +67,7 @@ def main():
         source = source.strip('"').strip("'")
 
         if not source or not os.path.isfile(source):
-            print("[!] Fichier introuvable :", source)
+            print("[!] File not found :", source)
             pause()
             return
 
@@ -86,13 +86,13 @@ def main():
             bureau = os.path.join(os.path.expanduser("~"), "Bureau")
 
         if not os.path.isdir(bureau):
-            print("[!] Impossible de localiser le Bureau.")
+            print("[!] Unable to locate the Desktop.")
             pause()
             return
 
         chemin_sortie = os.path.join(bureau, sortie)
 
-        print("\n[*] Generation en cours...")
+        print("\n[*] Generation in progress...")
 
         payload = lire_payload(source)
         sel, payload_chiffre = chiffrer_payload(payload)
@@ -101,9 +101,9 @@ def main():
         stub = generer_stub(sel_b64, payload_b64)
         ecrire_stub(chemin_sortie, stub)
 
-        print("[+] Stub genere :", chemin_sortie)
-        print("[+] Taille originale :", len(payload), "octets")
-        print("[+] Taille chiffree :", len(payload_chiffre), "octets")
+        print("[+] Generated stub :", chemin_sortie)
+        print("[+] Original size :", len(payload), "octets")
+        print("[+] Encrypted size :", len(payload_chiffre), "octets")
         print()
         print("[i] Execution : python", '"' + chemin_sortie + '"')
 
